@@ -26,12 +26,17 @@ class NewQuestion extends Component {
         };
     }
     handleSaveQuestion = () => {
-        console.log(this.props.authedUser, this.state.optionOne, this.state.optionTwo);
-        this.setState({ isSaving: true });
-        this.props.handleCreateQuestion(this.props.authedUser, this.state.optionOne, this.state.optionTwo);
-        setTimeout(() => {
-            this.setState({ isSaving: false, redirectToHome: true });
-        }, 1000);
+        if (this.state.optionOne === "" || this.state.optionTwo === "") {
+            window.alert("Please enter all options");
+        } else if (this.state.optionOne === this.state.optionTwo) {
+            window.alert("Your options shouldn't be identical");
+        } else {
+            this.setState({ isSaving: true });
+            this.props.handleCreateQuestion(this.props.authedUser, this.state.optionOne, this.state.optionTwo);
+            setTimeout(() => {
+                this.setState({ isSaving: false, redirectToHome: true });
+            }, 1000);
+        }
     };
     render() {
         return this.state.redirectToHome ? (

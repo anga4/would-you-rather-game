@@ -16,9 +16,6 @@ function mapStateToProps({ users, questions, authedUser }) {
         users: Object.keys(users).map((key) => {
             return users[key];
         }),
-        questions: Object.keys(questions).map((key) => {
-            return questions[key];
-        }),
         authedUser: authedUser
     };
 }

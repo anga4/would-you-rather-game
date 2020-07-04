@@ -1,4 +1,5 @@
 import { saveQuestion, saveQuestionAnswer } from "../database/api";
+import { saveUserQuestion, saveUserQuestionAnswer } from "./users";
 
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
 export const CREATE_QUESTION = "CREATE_QUESTION";
@@ -33,7 +34,10 @@ export function handleCreateQuestion(author, optionOneText, optionTwoText) {
             author,
             optionOneText,
             optionTwoText
-        }).then((question) => dispatch(createQuestion(question)));
+        }).then((question) => {
+            dispatch(createQuestion(question));
+            dispatch(saveUserQuestion(author, question.id));
+        });
     };
 }
 
@@ -46,6 +50,7 @@ export function handleSaveQuestionAnswer(authedUser, qid, answer) {
         };
         saveQuestionAnswer(data).then(() => {
             dispatch(addQuestionAnswer(authedUser, qid, answer));
+            dispatch(saveUserQuestionAnswer(authedUser, qid, answer));
         });
     };
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import NotFoundPage from "./NotFoundPage";
 import { connect } from "react-redux";
 import { handleSaveQuestionAnswer } from "../actions/questions";
-import { Redirect } from "react-router-dom";
 
 function mapStateToProps({ users, questions, authedUser }) {
     return {
@@ -19,8 +19,7 @@ class QuestionInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            voteChoice: null,
-            redirectToHome: false
+            voteChoice: null
         };
     }
 
@@ -33,10 +32,13 @@ class QuestionInfo extends Component {
         }
     };
     render() {
-        const question = this.props.questions.filter((question) => question.id === this.props.match.params.id)[0];
+        const question =
+            this.props.questions.filter((question) => question.id === this.props.match.params.id).length === 0
+                ? this.props.questions.filter((question) => question.id === this.props.match.params.id)
+                : this.props.questions.filter((question) => question.id === this.props.match.params.id)[0];
         const questionAuthor = this.props.users.filter((user) => user.id === question.author)[0];
-        return this.state.redirectToHome ? (
-            <Redirect to="/" />
+        return question.length === 0 ? (
+            <NotFoundPage />
         ) : (
             <div className="row w-50 mx-auto mt-5">
                 <div className="card mb-3 col-12">
@@ -53,7 +55,12 @@ class QuestionInfo extends Component {
                                     <>
                                         <br />
                                         <span>
-                                            {question.optionOne.text} <br /> (Votes : {question.optionOne.votes.length})
+                                            1. {question.optionOne.text}&ensp;
+                                            {question.optionOne.votes.includes(this.props.authedUser) && (
+                                                <span className="badge badge-pill badge-success">Users choice</span>
+                                            )}
+                                            <br />
+                                            (Votes : {question.optionOne.votes.length})
                                         </span>
                                         <div className="progress">
                                             <div
@@ -67,15 +74,22 @@ class QuestionInfo extends Component {
                                                         "%"
                                                 }}
                                             >
-                                                {(question.optionOne.votes.length /
-                                                    (question.optionOne.votes.length + question.optionTwo.votes.length)) *
-                                                    100}
+                                                {(
+                                                    (question.optionOne.votes.length /
+                                                        (question.optionOne.votes.length + question.optionTwo.votes.length)) *
+                                                    100
+                                                ).toFixed(2)}
                                                 %
                                             </div>
                                         </div>
                                         <br />
                                         <span>
-                                            {question.optionTwo.text} <br /> (Votes : {question.optionTwo.votes.length})
+                                            2. {question.optionTwo.text}&ensp;
+                                            {question.optionTwo.votes.includes(this.props.authedUser) && (
+                                                <span className="badge badge-pill badge-success">Users choice</span>
+                                            )}
+                                            <br />
+                                            (Votes : {question.optionTwo.votes.length})
                                         </span>
                                         <div className="progress">
                                             <div
@@ -89,9 +103,11 @@ class QuestionInfo extends Component {
                                                         "%"
                                                 }}
                                             >
-                                                {(question.optionTwo.votes.length /
-                                                    (question.optionOne.votes.length + question.optionTwo.votes.length)) *
-                                                    100}
+                                                {(
+                                                    (question.optionTwo.votes.length /
+                                                        (question.optionOne.votes.length + question.optionTwo.votes.length)) *
+                                                    100
+                                                ).toFixed(2)}
                                                 %
                                             </div>
                                         </div>
@@ -139,10 +155,10 @@ class QuestionInfo extends Component {
                                     )}
 
                                     {/* {questionAuthor.id === this.props.authedUser && (
-                                        <button onClick={() => console.log(this.props)} className="btn btn-sm btn-danger">
-                                            Delete
-                                        </button>
-                                    )} */}
+                            <button onClick={() => console.log(this.props)} className="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+                        )} */}
                                 </p>
                             </div>
                         </div>
