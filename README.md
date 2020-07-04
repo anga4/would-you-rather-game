@@ -1,7 +1,8 @@
 ## Would You Rather Game
 
-The would you rather game is a web app built with react and redux
-The Game allows a logged in user to create answer a question from two, create his own question and view questions created by other users.
+The would you rather game is a web app built with react and redux.
+
+The Game allows a logged in user to answer a question from two, create his own question and view questions created by other users.
 
 ## Installing the app locally
 
