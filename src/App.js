@@ -8,6 +8,8 @@ import HomePage from "./components/HomePage";
 import NavComponent from "./components/NavComponent";
 import LeaderBoard from "./components/LeaderBoard";
 import NewQuestion from "./components/NewQuestion";
+import NotFoundPage from "./components/NotFoundPage";
+import QuestionInfo from "./components/QuestionInfo";
 
 function mapStateToProps({ users, questions, authedUser }) {
     return {
@@ -36,7 +38,9 @@ class App extends Component {
                         <Switch>
                             <Route path="/" exact component={HomePage} />
                             <Route path="/leaderboard" exact component={LeaderBoard} />
-                            <Route path="/question" exact component={NewQuestion} />
+                            <Route path="/add" exact component={NewQuestion} />
+                            <Route path="/questions/:id" exact component={QuestionInfo} />
+                            <Route component={NotFoundPage} />
                         </Switch>
                     )}
                 </div>

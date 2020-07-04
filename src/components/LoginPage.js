@@ -53,7 +53,7 @@ class LoginPage extends Component {
                                 </select>
                             ) : (
                                 <span className="font-weight-bolder" style={{ fontSize: 20 }}>
-                                    <span className="spinner-border" role="status" />
+                                    <span className="spinner-border mr-2" role="status" />
                                     fetching_users
                                 </span>
                             )}
