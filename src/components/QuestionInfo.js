@@ -55,9 +55,9 @@ class QuestionInfo extends Component {
                                         <span>
                                             {question.optionOne.text} <br /> (Votes : {question.optionOne.votes.length})
                                         </span>
-                                        <div class="progress">
+                                        <div className="progress">
                                             <div
-                                                class="progress-bar"
+                                                className="progress-bar"
                                                 role="progressbar"
                                                 style={{
                                                     width:
@@ -77,9 +77,9 @@ class QuestionInfo extends Component {
                                         <span>
                                             {question.optionTwo.text} <br /> (Votes : {question.optionTwo.votes.length})
                                         </span>
-                                        <div class="progress">
+                                        <div className="progress">
                                             <div
-                                                class="progress-bar"
+                                                className="progress-bar"
                                                 role="progressbar"
                                                 style={{
                                                     width:
